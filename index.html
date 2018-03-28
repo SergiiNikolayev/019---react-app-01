@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>React APP</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/babel" >
+        const appId = document.getElementById('app');
+
+        class Note extends React.Component {
+            render() {
+                return (
+                        <div className="note"> Note </div>
+                );
+            }
+        };
+
+        class NoteEditor extends React.Component {
+            render() {
+                return (
+                        <div className="note-editor"> NoteEditor </div>
+                );
+            }
+        };
+
+        /**
+         * Show all notes we have
+         * */
+        class NotesGrid extends React.Component {
+            render() {
+                return (
+                        <div className="notes-grid">
+                            NotesGrid
+                            <Note />
+                            <Note />
+                            <Note />
+                        </div>
+                )
+            }
+        };
+
+        /**
+         * here we store and then share to children components
+         * */
+        class NotesApp extends React.Component {
+            getInitialState() {
+                return {
+                    notes: [{ //here stores array of notes
+                            id: 0,
+                            text: "qwerty",
+                            color: "#ffd700"
+                        },{
+                            id: 1,
+                            text: "asdfgh",
+                            color: "#20b2aa"
+                        },{
+                            id: 2,
+                            text: "zxcvbnm",
+                            color: "#90ee90"
+                    }] //here stores array of notes
+                }
+            }
+
+            render() {
+                return (
+                        <div className="notes-app">
+                            NotesApp
+                            <NoteEditor/>
+                            <NotesGrid notes={this.state.notes}/>
+                        </div>
+                );
+            }
+        };
+
+        ReactDOM.render(
+                <NotesApp />,
+                appId
+        );
+
+    </script>
+</body>
+</html>
