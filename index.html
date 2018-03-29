@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="app"></div>
@@ -124,7 +125,7 @@ var NotesGrid = React.createClass({
                 <div className="notes-grid">
                     {
                         this.props.notes.map(function(note) {
-                            return <Note key={note.id} color={note.color} > <span> {note.money} </span> {note.text} </Note>;
+                            return <Note key={note.id} color={note.color} > <span className="notes-money"> {note.money} </span> {note.text} </Note>;
                         })
                     }
                 </div>
