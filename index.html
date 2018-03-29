@@ -3,19 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <title>React APP</title>
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<!--    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.min.js"></script>
 </head>
 <body>
     <div id="app"></div>
     <script type="text/babel" >
+/*
         const appId = document.getElementById('app');
 
         class Note extends React.Component {
             render() {
                 return (
-                        <div className="note"> Note </div>
+                        <div className="note"> {this.props.children} </div>
                 );
             }
         };
@@ -28,43 +33,55 @@
             }
         };
 
-        /**
+        /!**
          * Show all notes we have
-         * */
+         * *!/
         class NotesGrid extends React.Component {
             render() {
                 return (
                         <div className="notes-grid">
-                            NotesGrid
-                            <Note />
-                            <Note />
-                            <Note />
+                            {
+                                this.props.notes.map(function (note) {
+                                    return <Note key={note.id} color={note.color} > {note.text} </Note>;
+                                })
+                            }
                         </div>
                 )
             }
         };
 
-        /**
+        /!**
          * here we store and then share to children components
-         * */
+         * *!/
         class NotesApp extends React.Component {
-            getInitialState() {
-                return {
-                    notes: [{ //here stores array of notes
-                            id: 0,
-                            text: "qwerty",
-                            color: "#ffd700"
-                        },{
-                            id: 1,
-                            text: "asdfgh",
-                            color: "#20b2aa"
-                        },{
-                            id: 2,
-                            text: "zxcvbnm",
-                            color: "#90ee90"
-                    }] //here stores array of notes
+            constructor(props){
+                super(props);
+                this.state = {
+                    //here stores array of notes
+                    id: 0,
+                    text: "qwerty",
+                    color: "#ffd700"
+
                 }
             }
+
+            /!*            getInitialState: function() {
+                            return {
+                                notes: [{ //here stores array of notes
+                                        id: 0,
+                                        text: "qwerty",
+                                        color: "#ffd700"
+                                    },{
+                                        id: 1,
+                                        text: "asdfgh",
+                                        color: "#20b2aa"
+                                    },{
+                                        id: 2,
+                                        text: "zxcvbnm",
+                                        color: "#90ee90"
+                                    }] //here stores array of notes
+                            }
+                        }*!/
 
             render() {
                 return (
@@ -79,9 +96,79 @@
 
         ReactDOM.render(
                 <NotesApp />,
-                appId
+            appId
         );
+*/
 
-    </script>
+var appId = document.getElementById('app');
+
+var Note = React.createClass({
+    render: function () {
+        return (
+                <div className="note"> {this.props.children} </div>
+        );
+    }
+});
+
+var NoteEditor = React.createClass({
+    render: function () {
+        return (
+                <div className="note-editor"> NoteEditor </div>
+        );
+    }
+});
+
+var NotesGrid = React.createClass({
+    render: function () {
+        return (
+                <div className="notes-grid">
+                    {
+                        this.props.notes.map(function(note) {
+                            return <Note key={note.id} color={note.color} > <span> {note.money} </span> {note.text} </Note>;
+                        })
+                    }
+                </div>
+        )
+    }
+});
+
+
+var NotesApp = React.createClass({
+    getInitialState: function () {
+        return {
+            notes: [
+                { //here stores array of notes
+                    id: 0,
+                    money: 100,
+                    text: "qwerty",
+                    color: "#ffd700"
+                }, {
+                    id: 1,
+                    money: 200,
+                    text: "asdfgh",
+                    color: "#20b2aa"
+                }, {
+                    id: 2,
+                    money: 150,
+                    text: "zxcvbnm",
+                    color: "#90ee90"
+                }
+            ]
+        };
+    },
+    render: function () {
+        return (
+                <div className="notes-app">
+                    NotesApp
+                    <NoteEditor/>
+                    <NotesGrid notes={this.state.notes}/>
+                </div>
+        );
+    }
+});
+
+ReactDOM.render(<NotesApp />, appId);
+
+</script>
 </body>
 </html>
