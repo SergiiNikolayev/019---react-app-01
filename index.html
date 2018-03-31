@@ -24,12 +24,42 @@
         });
 
         var NoteEditor = React.createClass({
+            getInitialState: function () {
+                return{
+                    text: '',
+                   textDescription: ''
+                };
+            },
+
+            handleTextChangeMoney: function (event) {
+                this.setState({ text: event.target.value });
+            },
+
+
+            handleTextChangeDescription: function (event) {
+                this.setState({ textDescription: event.target.value });
+            },
+
+
+
+            handleNoteAdd: function () {
+                /** forming new object with new Note*/
+                var newNote = {
+                    text: this.state.text,
+                    textDescription: this.state.textDescription,
+                    color: 'yellow',
+                    id: Date.now()
+                };
+
+                this.props.onNoteAdd(newNote);
+            },
+
             render: function () {
                 return (
                         <div className="note-editor">
-                            <input type="text" placeholder="Add number" className="input-money"/>
-                            <input type="text" placeholder="comment" className="input-comment"/>
-                            <button className="add-button">Add</button>
+                            <input type="text" placeholder="Money" className="input-money" onChange={this.handleTextChangeMoney}/>
+                            <input type="text" placeholder="Description" className="input-description" onChange={this.handleTextChangeDescription}/>
+                            <button className="add-button" onClick={this.handleNoteAdd}>Add</button>
                         </div>
                 );
             }
@@ -41,7 +71,7 @@
                         <div className="notes-grid">
                             {
                                 this.props.notes.map(function(note) {
-                                    return <Note key={note.id} color={note.color} > <span className="notes-money"> {note.money + " | "} </span> {note.text} </Note>;
+                                    return <Note key={note.id} color={note.color} > <span className="notes-money"> {note.text + " | "}{note.id} </span> {note.textDescription} </Note>;
                                 })
                             }
                         </div>
@@ -73,11 +103,18 @@
                     ]
                 };
             },
+            
+            handleNoteAdd: function (newNote) {
+                var newNotes = this.state.notes.slice();
+                newNotes.unshift(newNote); //The unshift() method adds one or more elements to the beginning of an array and returns the new length of the array.
+                this.setState({ notes: newNotes });
+            },
+            
             render: function () {
                 return (
                         <div className="notes-app">
                             NotesApp
-                            <NoteEditor/>
+                            <NoteEditor onNoteAdd={this.handleNoteAdd}/>
                             <NotesGrid notes={this.state.notes}/>
                         </div>
                 );
