@@ -23,7 +23,11 @@
             }
         });
 
+
+
         var NoteEditor = React.createClass({
+
+
             getInitialState: function () {
                 return{
                     text: '',
@@ -48,6 +52,7 @@
                     text: this.state.text,
                     textDescription: this.state.textDescription,
                     color: 'yellow',
+                    //when: date(),
                     id: Date.now()
                 };
 
@@ -71,7 +76,7 @@
                         <div className="notes-grid">
                             {
                                 this.props.notes.map(function(note) {
-                                    return <Note key={note.id} color={note.color} > <span className="notes-money"> {note.text + " | "}{note.id} </span> {note.textDescription} </Note>;
+                                    return <Note key={note.id} color={note.color} > <span className="notes-money"> {note.text + " | "}{note.when} </span> {note.textDescription} </Note>;
                                 })
                             }
                         </div>
