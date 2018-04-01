@@ -7,10 +7,31 @@
 body {
     font-family:sans-serif;
     font-weight: 300;
+    background-color: #eaeaea;
+}
+
+#app{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -webkit-flex; /* Safari */
+    -webkit-align-items: center; /* Safari 7.0+ */
+    display: flex;
+    align-items: center;
 }
 
 .note {
-    width: 82%;
+    width: 83%;
     height: auto;
     float: left;
     background-color: #ffe913;
@@ -31,14 +52,29 @@ body {
 }
 
 .notes-app{
-    min-width: 960px;
+    max-width: 800px;
     width: 100%;
 }
 
 .notes-money{
-    color: chocolate;
+    color: #626262;
     font-weight: bold;
     font-size: x-large;
+}
+
+.notes-when{
+
+
+}
+
+.notes-description{
+    font-family: sans-serif Verdana Tahoma;
+    font-size: larger;
+    color: #626262;
+}
+
+input, select, button{
+    box-shadow: 0 1px 10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 input[type=text], select {
@@ -60,4 +96,31 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: /*all .3s;*/ all 0.8s, color 0.3s 0.3s;
 }
+button:hover{
+    box-shadow: 300px 0 0 0 rgba(0, 0, 0, 0.5) inset;
+}
+
+.edit-note, .delete-note {
+    float: right;
+    background-color: rgba(255, 167, 185, 0.47);
+    border-radius: 2px;
+    margin: 0 5px;
+    padding: 5px;
+    transition: all .2s;
+    display: none;
+    color: rgba(0,0,0,0.6);
+    cursor: pointer;
+}
+
+.note:hover .delete-note {
+    display: block;
+}
+
+.edit-note:hover, .delete-note:hover {
+/*    background-color: rgb(255, 101, 116);*/
+    box-shadow: 0 80px 0 0 rgba(0, 0, 0, 0.25) inset,
+    0 -80px 0 0 rgba(0, 0, 0, 0.25) inset;
+}
+

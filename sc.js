@@ -1,22 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <title>React APP</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="app"></div>
-    <script type="text/babel" >
         var appId = document.getElementById('app');
 
         var Note = React.createClass({
 
-
-
             render: function () {
                 var colorStyles = { backgroundColor: this.props.color };
                 return (
@@ -26,36 +11,7 @@
                             {this.props.children}
                         </div>
                 );
-            },
-
-/*            renderNormal: function () {
-                var colorStyles = { backgroundColor: this.props.color };
-                return (
-                        <div className="note" style={colorStyles}>
-                            <span className="delete-note" onClick={this.props.onDelete}>X</span>
-                            <span className="edit-note" onClick={this.props.onEdit}>Edit</span>
-                            {this.props.children}
-                        </div>
-                );
-            },
-
-            renderEdit: function () {
-                var colorStyles = { backgroundColor: this.props.color };
-                return (
-                        <div className="note" style={colorStyles}>
-                            <span className="save-note" onClick={this.props.onSave}>Save</span>
-                            {this.props.children}
-                        </div>
-                );
-            },
-
-            render: function () {
-                if(this.state.editing){
-                    return this.renderNormal();
-                }else{
-                    return this.renderEdit();
-                }
-            }*/
+            }
         });
 
 
@@ -69,10 +25,7 @@
             },
 
             handleTextChangeMoney: function (event) {
-                var re = /^[0-9\b]+$/; /*https://stackoverflow.com/questions/43067719/how-to-allow-only-numbers-in-textbox-in-reactjs*/
-                if (event.target.value == '' || re.test(event.target.value)) {
-                    this.setState({text: event.target.value})
-                }
+                this.setState({ text: event.target.value });
             },
 
             handleTextChangeDescription: function (event) {
@@ -80,14 +33,13 @@
             },
 
             handleNoteAdd: function () {
-                var addedDate = new Date().toJSON().slice(0,10).replace(/-/g,'/');
                 /** forming new object with new Note*/
                 var newNote = {
                     text: this.state.text,
                     textDescription: this.state.textDescription,
                     category: '',
                     color: '#f5f506a1',
-                    when: addedDate,
+                    //when: date(),
                     id: Date.now()
                 };
 
@@ -102,7 +54,7 @@
                         <div className="note-editor">
                             <input type="text" placeholder="How much $" value={this.state.text} className="input-money" onChange={this.handleTextChangeMoney}/>
                             <input type="text" placeholder="Description" value={this.state.textDescription} className="input-description" onChange={this.handleTextChangeDescription}/>
-                            <select id="cate" name="Category">
+                            <select id="country" name="Category">
                                 <option value="spend">Spendings</option>
                                 <option value="income">Incomings</option>
                             </select>
@@ -116,7 +68,6 @@
 
             render: function () {
                 var onNoteDelete = this.props.onNoteDelete;
-                /*var onEdit = this.props.onEdit;*/
                 return (
                         <div className="notes-grid" ref="grid">
                             {
@@ -125,13 +76,9 @@
                                             <Note
                                                     key={note.id}
                                                     onDelete={onNoteDelete.bind(null, note)/*()=>this.onNoteDelete*/}
-                                                    onEdit={ console.log()/* onEdit.bind(null, note)*/}
                                                     color={note.color} > <span className="notes-money">
-                                                        {note.text}
-                                                    </span>
-                                                    <i className="notes-when"> - {note.when} - </i>
-                                                    <span className="notes-description"> : {note.textDescription}</span>
-
+                                                    {note.text}
+                                                {note.when} </span> {note.textDescription}
                                             </Note>
                                         );
                                 })
@@ -161,18 +108,7 @@
             componentDidUpdate: function () {
                 this._updateLocalStorage();
             },
-
-
-/*            onEdit: function () {
-                this.setState({ editing: true });
-            },
-
-            onSave: function () {
-                var val = this.newText.value;
-                console.log('new comment: ' + val);
-                this.setState({ editing: false });
-            },*/
-
+            
             handleNoteDelete: function (note) {
                 var noteId = note.id;
                 var newNotes = this.state.notes.filter(function (note) {
@@ -203,6 +139,3 @@
         });
 
         ReactDOM.render(<NotesApp />, appId);
-</script>
-</body>
-</html>
