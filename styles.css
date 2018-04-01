@@ -73,7 +73,7 @@ body {
     color: #626262;
 }
 
-input, select, button{
+input, select{
     box-shadow: 0 1px 10px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
@@ -94,11 +94,13 @@ button {
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: /*all .3s;*/ all 0.8s, color 0.3s 0.3s;
+    transition: all 0.8s, color 0.3s 0.3s;
 }
-button:hover{
+.note-editor .add-button:hover {
+    -webkit-box-shadow: 300px 0 0 0 rgba(0, 0, 0, 0.5) inset;
+    -moz-box-shadow: 300px 0 0 0 rgba(0, 0, 0, 0.5) inset;
     box-shadow: 300px 0 0 0 rgba(0, 0, 0, 0.5) inset;
 }
 
@@ -108,7 +110,6 @@ button:hover{
     border-radius: 2px;
     margin: 0 5px;
     padding: 5px;
-    transition: all .2s;
     display: none;
     color: rgba(0,0,0,0.6);
     cursor: pointer;
